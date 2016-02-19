@@ -18,8 +18,21 @@ sub help() {
 }
 
 sub getRooms() {
-  while ($temp =~ />([A-Z]+-\w+-\w+)<br>.*<\/span><\/a>\s*<\/td><td>(\w+\s+\w+.*(?:AM|PM)\s*)<\/td><td>[A-Z]/g) {
-    print "<$2>\n"
+
+}
+sub getRoom() {
+  while ($temp =~ />([A-Z]+-\w+-\w+)<br>.*<\/span><\/a>\s*<\/td><td>((\w+\s+\w+).*(?:AM|PM)\s*)<\/td><td>[A-Z]/g) {
+    (my $course, my $tempSche) =($1, $2);
+    my @schedules = split /<br>\s/, $tempSche;
+
+    foreach my $schedule (@schedules) {
+        $schedule =~ /(\w+\s+\w+)\s+(L\w+\s+\w+\s+(?:\d{2}:\d{2}(?:AM|PM)\s\d{2}:\d{2}(?:AM|PM)))/g;
+        $schedule = $2;
+        if($1 =~ /HH\s*208/) {
+            print $course, "\t",$schedule, "\n";
+        }
+    }
+
   }
 }
 
