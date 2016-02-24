@@ -1,9 +1,17 @@
 #!/usr/bin/perl
+use WWW::Mechanize;
 use warnings;
 use strict;
+my $arg0 = shift @ARGV;
 
-open FILE, "<webpage.html";
-my $temp = do{local $/; <FILE>};
+
+
+my $url = 'http://www2.monmouth.edu/muwebadv/wa3/search/SearchClasses.aspx';
+my $m = WWW::Mechanize->new();
+$m->get($url);
+$m->select('ddlTerm',$arg0);
+my$response = $m->click_button(name => 'btnSubmit');
+my $temp = $response->content();
 #\s*<\/td><td>([A-Z]{2}.*(?:PM|AM))
 
 sub help() {
@@ -47,7 +55,7 @@ foreach (@ARGV) {
         exit 0;
       }
       elsif($_ =~ /--rooms/) {
-        getRooms();
+        getRoom();
         exit 0;
       }
       else {
