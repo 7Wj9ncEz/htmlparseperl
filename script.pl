@@ -47,8 +47,6 @@ sub getRooms() {
 }
 sub getRoom {
   $m->get($url);
-  print $_[0], "\n";
-  print $_[1], "\n";
   $m->select('ddlTerm',$_[0]);
   my$response = $m->click_button(name => 'btnSubmit');
   my $temp = $response->content();
@@ -77,13 +75,12 @@ sub getRoom {
 }
 
 sub getTerms() {
-  my @terms = (1,2,3);
-
-  foreach my $term (@terms) {
-    print $term, "\n";
-  }
-
-  return @terms;
+  $m->get($url);
+  my $temporary = $m->content();
+  
+  	while($temporary =~ /<option value="\w+\/\w+">(\w+\/\w+\s+-\s+.+)<\/option>/g){
+  		print $1,"\n";	
+  	}
 }
 
 
