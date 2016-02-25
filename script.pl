@@ -48,7 +48,7 @@ sub getRooms() {
 sub getRoom {
   $m->get($url);
   $m->select('ddlTerm',$_[0]);
-  my$response = $m->click_button(name => 'btnSubmit');
+  my $response = $m->click_button(name => 'btnSubmit');
   my $temp = $response->content();
   my $count = 0;
   
@@ -88,10 +88,12 @@ if($arg =~ /--terms/) {
   getTerms();
   exit 0;
 }
+
 if($arg =~ /--rooms/) {
   getRooms();
   exit 0 ;
 }
+
 if($arg =~ /(\w+\/\w+)/) {
   my $arg1 = shift @ARGV;
   my $term = $1;
@@ -101,6 +103,10 @@ if($arg1 =~ /(\w+\s+\w+)/) {
   }
   exit 0;
 }
+else{
+	print "Wrong Argument, try --terms for available Terms, --rooms for available Rooms or --help for Help.\n";
+}
+
 if($arg =~ /--help/) {
   help();
   exit 0;
