@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+#Perl Project
+#Matheus de Sousa Bernardo and Vinicius Carvalho Machado
+
 use WWW::Mechanize;
 use warnings;
 use strict;
@@ -16,7 +19,7 @@ sub help() {
         \t\t--help : display this help screen and sample usage
         \t\t--terms : list all currently available\n\n");
 }
-
+#Sub to get all rooms available
 sub getRooms() {
   $m->get($url);
   $m->select('ddlTerm','16/SP');
@@ -45,6 +48,7 @@ sub getRooms() {
   		print $key, "\n";
   	}
 }
+#Sub to get the schedule for the specific term and room
 sub getRoom {
   $m->get($url);
   $m->select('ddlTerm',$_[0]);
@@ -73,7 +77,7 @@ sub getRoom {
         	print "No class for this room or room is incorrect!\n";
         }
 }
-
+#Sub to get all terms available
 sub getTerms() {
   $m->get($url);
   my $temporary = $m->content();
